@@ -1,32 +1,39 @@
 import {AuthProviderProps, UserProps} from "../../libraries/utils/types.ts";
 import {FC, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import { AuthContext } from "./useAuth.tsx";
+import {AuthContext} from "./useAuth.tsx";
+import {useMutation, useQuery} from "@apollo/client";
+import {ACTIVE_CUSTOMER_QUERY} from "../../api/schemas/query.ts";
+import {LOGOUT_MUTATION} from "../../api/schemas/mutation.ts";
 
 
 const AuthProvider: FC<AuthProviderProps> = ({children}) => {
     const [user, setUser] = useState<UserProps | null>(null);
     const navigate = useNavigate();
-    const login = () => {
-        setUser(():UserProps => {
+    const {data} = useQuery(ACTIVE_CUSTOMER_QUERY);
+    const [logoutMutation] = useMutation(LOGOUT_MUTATION);
+    const activeCustomer = data?.activeCustomer;
+    const setUserData = async () => {
+        setUser((): UserProps => {
             return {
-                id: "123",
-                username: "john_doe",
-                email: "john@example.com",
+                id: activeCustomer?.id,
+                firstName: activeCustomer?.firstName,
+                lastName: activeCustomer?.lastName,
+                emailAddress: activeCustomer?.emailAddress,
+                __typename: activeCustomer?.__typename
             };
         })
         navigate('/');
-        console.log("User Logged In")
     };
-    const logout = () => {
+    const logout = async () => {
+        await logoutMutation();
         setUser(null);
         navigate('/');
-        console.log("User Logged Out");
     };
 
 
     return (
-        <AuthContext.Provider value={{user, login, logout}}>
+        <AuthContext.Provider value={{user, setUserData, logout}}>
             {children}
         </AuthContext.Provider>
     )

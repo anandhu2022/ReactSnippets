@@ -1,8 +1,8 @@
 import {useState} from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import {Link, useNavigate} from "react-router-dom";
-import {useAuth} from "../context/Auth/useAuth.tsx";
-import useTheme from "../context/Theme/useTheme.tsx";
+import {useAuth} from "../../context/Auth/useAuth.tsx";
+import useTheme from "../../context/Theme/useTheme.tsx";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import {AccountCircleOutlined} from "@mui/icons-material";
@@ -16,17 +16,22 @@ const Header = () => {
     const [sideBar, setSideBar] = useState<boolean>(false);
     const [shoppingCartSidebar, setShoppingCartSidebar] = useState<boolean>(false);
     const Icon = isLightMode ? LightModeIcon : DarkModeIcon;
+    const transition = "transform ease-out duration-500 transform hover:scale-125";
     const categories = <>
-        <div className="hover:bg-gray-950 cursor-pointer p-2 rounded">Category</div>
-        <div className="hover:bg-gray-950 cursor-pointer p-2 rounded">Category</div>
-        <div className="hover:bg-gray-950 cursor-pointer p-2 rounded">Category</div>
-        <div className="hover:bg-gray-950 cursor-pointer p-2 rounded">Category</div>
-        <div className="hover:bg-gray-950 cursor-pointer p-2 rounded">Category</div>
+        <div className={`hover:bg-gray-950 cursor-pointer p-2 rounded transition duration-500 ${transition}`}>Category
+        </div>
+        <div className={`hover:bg-gray-950 cursor-pointer p-2 rounded transition duration-500 ${transition}`}>Category
+        </div>
+        <div className={`hover:bg-gray-950 cursor-pointer p-2 rounded transition duration-500 ${transition}`}>Category
+        </div>
+        <div className={`hover:bg-gray-950 cursor-pointer p-2 rounded transition duration-500 ${transition}`}>Category
+        </div>
+        <div className={`hover:bg-gray-950 cursor-pointer p-2 rounded transition duration-500 ${transition}`}>Category
+        </div>
     </>;
-    console.log(sideBar);
     return (
         <div
-            className="py-2 px-4 bg-gradient-to-r from-purple-950 to-red-900 flex justify-between gap-2 items-center h-1/12">
+            className="px-3 bg-gradient-to-r from-purple-950 to-red-900 flex justify-between gap-2 items-center h-full">
             <div className="flex flex-row items-center gap-3">
                 <div className="block md:hidden">
                     <MenuOutlinedIcon className="text-white cursor-pointer" onClick={() => setSideBar(!sideBar)}/>
@@ -44,15 +49,15 @@ const Header = () => {
             <div className="flex gap-6">
                 <Icon
                     onClick={toggleMode}
-                    className={`${isLightMode ? "text-white" : "text-black"} cursor-pointer`}
+                    className={`text-white cursor-pointer ${transition}`}
                 />
 
                 <AccountCircleOutlined
-                    className={`${isLightMode ? "text-white" : "text-black"} cursor-pointer`}
+                    className={`text-white cursor-pointer ${transition}`}
                     onClick={() => user ? navigate('/dashboard') : navigate('/login')}
                 />
                 <ShoppingCartIcon
-                    className={`${isLightMode? "text-white" : "text-black"} cursor-pointer`}
+                    className={`text-white cursor-pointer ${transition}`}
                     onClick={() => setShoppingCartSidebar(!shoppingCartSidebar)}
                 />
 

@@ -7,8 +7,8 @@ const Homepage = () => {
     return (
         <div
             className={`${isLightMode ? "text-white" : "text-black"} h-full w-full flex justify-center items-center flex-col gap-2`}>
-            <div className="text-3xl">Homepage</div>
-            {user && <h1>Welcome, {user.username}!</h1>}
+            <div className="text-5xl">Homepage</div>
+            {user && <h1 className="text-2xl">Welcome, {user.firstName + " " + user.lastName}!</h1>}
         </div>
     );
 };

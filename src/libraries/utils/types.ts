@@ -2,13 +2,15 @@ import {ReactNode} from "react";
 
 export interface UserProps {
     id: string;
-    username: string;
-    email: string;
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    __typename: string;
 }
 
 export interface AuthContextType {
     user: UserProps | null;
-    login: () => void;
+    setUserData: () => void;
     logout: () => void;
 }
 
@@ -17,8 +19,8 @@ export interface AuthProviderProps {
 }
 
 export interface ButtonProps {
+    logout?: () => void;
     name: string;
-    handleClick: () => void;
 }
 
 export interface ThemeContextType {
