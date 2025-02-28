@@ -10,7 +10,7 @@ export interface UserProps {
 
 export interface AuthContextType {
     user: UserProps | null;
-    setUserData: () => void;
+    refetchUser: () => void;
     logout: () => void;
 }
 

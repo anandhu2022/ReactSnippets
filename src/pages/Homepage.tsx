@@ -1,9 +1,13 @@
 import {useAuth} from "../context/Auth/useAuth.tsx";
 import useTheme from "../context/Theme/useTheme.tsx";
+import {useEffect} from "react";
 
 const Homepage = () => {
     const {isLightMode} = useTheme();
-    const {user} = useAuth();
+    const {user, refetchUser} = useAuth();
+    useEffect(() => {
+        refetchUser();
+    }, []);
     return (
         <div
             className={`${isLightMode ? "text-white" : "text-black"} h-full w-full flex justify-center items-center flex-col gap-2`}>
