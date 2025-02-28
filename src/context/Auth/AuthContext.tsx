@@ -11,7 +11,6 @@ const AuthProvider: FC<AuthProviderProps> = ({children}) => {
     const [user, setUser] = useState<UserProps | null>(null);
     const navigate = useNavigate();
     const {data, refetch} = useQuery(ACTIVE_CUSTOMER_QUERY);
-    console.log(data);
     const [logoutMutation] = useMutation(LOGOUT_MUTATION);
 
     useEffect(() => {

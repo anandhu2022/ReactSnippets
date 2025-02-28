@@ -5,10 +5,12 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import {LOGIN_MUTATION} from "../api/schemas/mutation.ts";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import useAuth from "../context/Auth/useAuth.tsx";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
     const {isLightMode} = useTheme();
-    const {setUserData} = useAuth();
+    const {refetchUser} = useAuth();
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
@@ -22,8 +24,10 @@ const Login = () => {
         event.preventDefault();
         try {
             const {data} = await login({variables: {username, password}});
+            console.log(data);
             if (data?.login.__typename === "CurrentUser") {
-                setUserData();
+                refetchUser();
+                navigate('/');
             } else if (data?.login?.__typename === "InvalidCredentialsError") {
                 setErrorMessage(data?.login?.message);
                 setTimeout(() => setErrorMessage(""), 3000);
