@@ -24,7 +24,6 @@ const Login = () => {
         event.preventDefault();
         try {
             const {data} = await login({variables: {username, password}});
-            console.log(data);
             if (data?.login.__typename === "CurrentUser") {
                 refetchUser();
                 navigate('/');
