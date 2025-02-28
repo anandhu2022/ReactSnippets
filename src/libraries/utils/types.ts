@@ -28,8 +28,16 @@ export interface ThemeContextType {
     toggleMode: () => void;
 }
 
-export type Theme =  "light" | "dark";
+export type Theme = "light" | "dark";
 
 export interface ThemeProviderProps {
     children: ReactNode;
+}
+
+export interface ProductsImageCollectionProps {
+    items: {
+        featuredAsset: {
+            preview: string;
+        }
+    }[];
 }
